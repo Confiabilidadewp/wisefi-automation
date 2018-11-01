@@ -10,7 +10,7 @@ class info:
 
     def run(self):
         try:
-            plotly.tools.set_credentials_file(username='cardosoluke', api_key='8flan6vkd9EXqxqHH5tb')
+            plotly.tools.set_credentials_file(username='User', api_key='API_KEy')
             labels = self.tests
             values = self.results
 
