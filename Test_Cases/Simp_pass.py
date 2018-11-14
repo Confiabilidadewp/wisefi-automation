@@ -24,7 +24,7 @@ class Simp_pass:
                 print("in test, result is:", result)
                 options = webdriver.ChromeOptions()
                 options.add_argument('--no-sandbox')
-                browser = webdriver.Chrome('/home/lu050023/ChromeDriver/chromedriver', chrome_options=options)
+                browser = webdriver.Chrome('chromedriver', chrome_options=options)
                 browser.set_page_load_timeout(10)
                 browser.get('http://www.ufsc.br')
                 browser.find_element_by_id("password").send_keys(self.secret)
