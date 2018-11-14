@@ -37,5 +37,4 @@ class Login:
         #driver.quit()
 
 
-if __name__ == '__main__':
-    Login("http://127.0.0.1:8000", "admin","12345678").run()
+
