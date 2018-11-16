@@ -1,9 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
+import Global_variables
 
 options = webdriver.ChromeOptions()
 options.add_argument('--no-sandbox')
-driver = webdriver.Chrome('/home/lu050023/ChromeDriver/chromedriver', chrome_options=options)
+options.add_argument('--disable-application-cache')
+result = Global_variables.Global_variables
+driver = webdriver.Chrome(str(result('directory').get()), chrome_options=options)
 driver.set_page_load_timeout(45)
 
 
@@ -26,16 +30,14 @@ class Login:
         driver.find_element_by_name("password").send_keys(self.password)
         driver.find_element_by_tag_name("button").click()
         title = driver.title
+
+
         print(title)
         if driver.find_element_by_id("button_home"):
             botao = driver.find_element_by_id("button_home").get_attribute("id")
             print(botao)
-            print("Login feito com sucesso")
+            print("Success Login")
         else:
-            print("Login não foi feito!")
+            print("Login Fail")
         return driver
-        #driver.quit()
 
-
-if __name__ == '__main__':
-    Login("http://127.0.0.1:8000", "admin","12345678").run()

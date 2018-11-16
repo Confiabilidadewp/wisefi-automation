@@ -3,6 +3,7 @@
 from Test_Cases import Cad_ind, Simp_pass, CPF
 from Test_Cases.Voucher import Init_voucher
 import Report_plotly as report
+from Test_Cases.Simple_password import Init_Simple_password
 Tests = []
 Results = []
 class Controller:
@@ -16,7 +17,6 @@ class Controller:
 
             if self.Case == 1:
                 print("Voucher", self.Case)
-                # result = Voucher.Voucher(self.Case["voucher"], self.Case["time"], self.Case["ssid"]).test()
                 result = Init_voucher.begin().now()
                 Results.append(result)
                 Tests.append("Voucher")
@@ -35,8 +35,12 @@ class Controller:
                 return result
 
             elif self.Case == 4:
-                print("Senha Simples", self.Case)
-                result = Simp_pass.Simp_pass(self.Case["password"], self.Case["time"], self.Case["ssid"]).test()
+                print("Simple Password", self.Case)
+                result = Init_Simple_password.begin().now()
+                Results.append(result)
+                Tests.append("Simple Password")
+                report.info(Tests, Results).run()
+                print("Final Result", result)
                 return result
 
             else:
