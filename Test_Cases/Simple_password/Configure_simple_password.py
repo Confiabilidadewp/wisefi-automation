@@ -15,9 +15,12 @@ class SSID_CP:
         try:
 
             self.driver.set_page_load_timeout(45)
+            time.sleep(0.5)
             element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, "button_cp"))).click()
-            element = WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.ID, "cp_simple_password"))).click()
-            element = WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located((By.ID, "password1"))).clear()
+            time.sleep(0.5)
+            element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, "cp_simple_password"))).click()
+            time.sleep(0.5)
+            element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, "password1"))).clear()
             self.driver.find_element_by_id("password1").send_keys(self.senha)
             self.driver.find_element_by_id("password2").clear()
             self.driver.find_element_by_id("password2").send_keys(self.senha)
