@@ -59,7 +59,7 @@ class Simple_Password:
                     driver.close()
                     result = sock('8.8.8.8', self.time).run()
                     if result:
-                        print('slef.time=', self.time)
+                        print('sleep.time=', self.time)
                         time.sleep(self.time)
                         result = sock('8.8.8.8', self.time).run()
                         if result:
