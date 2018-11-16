@@ -5,7 +5,7 @@ import time
 
 from Socket_tester import sock
 from Connect_SSID import connect
-import Global_variables
+from Global_variables import Global_variables
 
 
 
@@ -17,19 +17,21 @@ class Simple_Password:
         self.ssid = ssid
 
     def test(self):
-
+        Global = Global_variables
         try:
 
             print("The test has began with password:", self.password, "time:", self.time, "ssid:", self.ssid)
-            result = connect(self.ssid, ip_address='192.168.7.61/24', ip_gw='192.168.7.1', dns_address='8.8.8.8',
-                             wireless_int='wlp2s0').run()
+            result = connect(self.ssid, ip_address=Global('WirelessIp').get(),
+                             ip_gw=Global('WirelessGw').get(),
+                             dns_address=Global('Dns').get(),
+                             wireless_int=Global('WirelessInt').get()).run()
             if result:
 
                 print("in test, result is:", result)
                 options = webdriver.ChromeOptions()
                 options.add_argument('--no-sandbox')
-                result = Global_variables.Global_variables
-                driver = webdriver.Chrome(result('directory').get(), chrome_options=options)
+                options.add_argument('--disable-application-cache')
+                driver = webdriver.Chrome(Global('directory').get(), chrome_options=options)
                 driver.set_page_load_timeout(45)
                 driver.get('http://www.ufsc.br')
                 driver.find_element_by_id("password").send_keys(self.password)

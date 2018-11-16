@@ -5,7 +5,7 @@ import time
 
 from Socket_tester import sock
 from Connect_SSID import connect
-import Global_variables
+from Global_variables import Global_variables
 
 class Voucher:
     
@@ -15,16 +15,21 @@ class Voucher:
         self.ssid = ssid
     
     def test(self):
+        Global = Global_variables
         try:
 
             print("The test has began with voucher number:", self.vnumber, "time:", self.time, "ssid:", self.ssid)
-            result = connect(self.ssid, ip_address='192.168.7.61/24', ip_gw='192.168.7.1', dns_address='8.8.8.8', wireless_int='wlp2s0').run()
+            result = connect(self.ssid,
+                             ip_address=Global('WirelessIp').get(),
+                             ip_gw=Global('WirelessGw').get(),
+                             dns_address=Global('Dns').get(),
+                             wireless_int=Global('WirelessInt').get()).run()
             if result:
                 print("in test, result is:", result)
                 options = webdriver.ChromeOptions()
                 options.add_argument('--no-sandbox')
-                result = Global_variables.Global_variables
-                browser = webdriver.Chrome(result('directory').get(), chrome_options=options)
+                options.add_argument('--disable-application-cache')
+                browser = webdriver.Chrome(Global('directory').get(), chrome_options=options)
                 browser.set_page_load_timeout(45)
                 browser.get('http://www.ufsc.br')
                 browser.find_element_by_id("voucher").send_keys(self.vnumber)
@@ -42,7 +47,7 @@ class Voucher:
                 try:
                     urlSucc = browser.find_element_by_xpath("/html/body/div/div/div/div[2]/form/div[@class=\'alert alert-success\']")
                     print("check in success")
-                    browser.close()
+                    # browser.close()
                     result = sock('8.8.8.8', self.time).run()
                     if result:
                         print('slef.time=',self.time)

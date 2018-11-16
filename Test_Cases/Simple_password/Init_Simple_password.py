@@ -5,6 +5,7 @@ from Test_Cases.Simple_password import Configure_SSID_CP_Simple_Password as SSID
 from Test_Cases.Simple_password import Configure_simple_password as config_cp
 from Test_Cases.Simple_password import Test_Simple_password
 import random_number as number
+from Global_variables import Global_variables
 
 class begin:
 
@@ -12,15 +13,16 @@ class begin:
         self.parameters = parameters
 
     def now(self):
+        Global = Global_variables
         ####Disconnecting and removing configurations#####
 
-        shell.shell('ifconfig wlp2s0 0.0.0.0 && iw dev wlp2s0 disconnect').run()
+        shell.shell('ifconfig ' + Global('WirelessInt').get() + ' 0.0.0.0 && iw dev ' + Global('WirelessInt').get() +  ' disconnect').run()
         shell.shell('route del default ').run()
         shell.shell('echo "" > /etc/resolv.conf').run()
 
         ####Starting Test CP Simple Password####
 
-        login = Login.Login('http://192.168.7.59:8000', 'admin', '12121212').run()
+        login = Login.Login(Global('WisefiAddress').get(), Global('WisefiUser').get(), Global('WisefiPass').get()).run()
         ssid = SSID.SSID_CP(login, ".AUTOMATION_WISEFI_S_PASS.").configure_ssid_cp_simple_password()
         NPassword = number.create(152000, 985250).run()
         config_cp.SSID_CP(login, NPassword).configure_simple_password()
@@ -29,9 +31,9 @@ class begin:
 
         ####Adding internet again, to be able to send report file####
 
-        shell.shell('ifconfig wlp2s0 0.0.0.0 && iw dev wlp2s0 disconnect').run()
-        shell.shell('route add default gw 192.168.7.1').run()
-        shell.shell('echo "nameserver 8.8.8.8" > /etc/resolv.conf').run()
+        shell.shell('ifconfig ' + Global('WirelessInt').get() +  ' 0.0.0.0 && iw dev ' + Global('WirelessInt').get() +  ' disconnect').run()
+        shell.shell('route add default gw '+Global('WirelessGw').get() ).run()
+        shell.shell('echo "nameserver ' + Global('Dns').get() + '" > /etc/resolv.conf').run()
         print(Test)
 
         return Test

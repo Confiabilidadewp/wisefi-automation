@@ -5,6 +5,7 @@ import Global_variables
 
 options = webdriver.ChromeOptions()
 options.add_argument('--no-sandbox')
+options.add_argument('--disable-application-cache')
 result = Global_variables.Global_variables
 driver = webdriver.Chrome(str(result('directory').get()), chrome_options=options)
 driver.set_page_load_timeout(45)

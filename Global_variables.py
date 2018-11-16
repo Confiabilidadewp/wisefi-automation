@@ -18,9 +18,16 @@ class Global_variables:
     def get(self):
         consult = Global_variables
         result = {'directory': consult.platform_directory(self),
-                  'WisefiAddress': '192.168.7.59:8000',
+                  'WisefiAddress': 'http://192.168.7.59:8000',
                   'WisefiUser': 'admin',
-                  'WisefiPass': '12121212'}
+                  'WisefiPass': '12121212',
+                  'WirelessInt': 'wlp2s0',
+                  'WirelessIp': '192.168.7.61/24',
+                  'WirelessGw': '192.168.7.1',
+                  'Dns': '8.8.8.8'
+                  }
+
+
         return result[self.info]
 
 
